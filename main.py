@@ -5,16 +5,17 @@ import pandas as pd
 host_postgres = 'postgresql://postgres:123456789@localhost:5432/postgres'
 app = ConnectPostgresQL(host_postgres)
 
-df_news_orders = pd.read_excel('janeiro2024.xlsx', sheet_name='Planilha1', engine='openpyxl')
+df_news_orders = pd.read_excel('janeiro2024.xlsx', sheet_name='2-Resultado', engine='openpyxl')
 df_news_orders = df_news_orders.astype(str)
 #app.create_database()
 
 for i in range(len(df_news_orders.astype(str))):
     try:
-        data = app.insert_data('pedidosfaturados',
+        data = app.insert_data('pedidosfaturados2024',
                 codigo_cliente = df_news_orders['codigo_cliente'][i],
                 loja_cliente = df_news_orders['loja_cliente'][i],
                 nome_do_cliente = df_news_orders['nome_do_cliente'][i],
+                cnpj_do_cliente = df_news_orders['cnpj_do_cliente'][i],
                 cnpj_de_faturamento = df_news_orders['cnpj_de_faturamento'][i],
                 cnpj_de_remessa = df_news_orders['cnpj_de_remessa'][i],
                 equipamento = df_news_orders['equipamento'][i],
@@ -22,8 +23,8 @@ for i in range(len(df_news_orders.astype(str))):
                 data_de_remessa = df_news_orders['data_de_remessa'][i],
                 serie_da_nf_remessa = df_news_orders['serie_da_nf_remessa'][i],
                 produto = df_news_orders['produto'][i],
-                #descricao_do_produto = df_news_orders['descricao_do_produto'][i],
                 quantidade = df_news_orders['quantidade'][i],
+                descricao_do_produto = df_news_orders['descricao_do_produto'][i],   
                 pedido_de_remessa = df_news_orders['pedido_de_remessa'][i],
                 projeto = df_news_orders['projeto'][i],
                 obra = df_news_orders['obra'][i],
